@@ -1,0 +1,51 @@
+entso_unit_id,unit_capacity,unit_fuel,country,unit_name,plant_name,plant_capacity
+11WD2ING3000058X,386,Oil,Germany (DE),Ingolstadt 3,Ingolstadt,772
+11WD7HERN2S--4-X,460,Coal,Germany (DE),HERNE_4,Herne,740
+11WD7VOER1S--B-Z,695,Coal,Germany (DE),Kraftwerk Voerde Block B,Kraftwerk Voerde,1390
+11WD7WSFN1S--E-Z,780,Coal,Germany (DE),Westfalen E,Westfalen,780
+11WD8LIPD1L---R6,891,Coal,Germany (DE),KW Lippendorf Block R,KW Lippendorf,1782
+11WD8TIEF5G-GUDI,127,Gas,Germany (DE),HKW Tiefstack GuD,HKW Tiefstack,316
+14W-WGM2-M1----X,417,Gas,Austria (AT),GDK-Mellach Linie 20,GDK-Mellach,838
+16WSINES3------0,295,Coal,Portugal (PT),Sines - G3,Sines,1180
+17W100P100P00032,285,Coal,France (FR),EMILE HUCHET 5,EMILE HUCHET 5,285
+17W100P100P0009R,595,Coal,France (FR),PROVENCE 5,PROVENCE 5,595
+17W100P100P0018Q,580,Coal,France (FR),CORDEMAIS 5,CORDEMAIS 5,580
+18WBES4-12345-CY,399.7,Gas,Spain (ES),BESOS 4,BESOS 4,399.7
+18WBRR1-12345-DS,570,Coal,Spain (ES),BARRIOS,BARRIOS,570
+18WCCO2-12345-DX,138.3,Coal,Spain (ES),CTCOMPO 2,CTCOMPOS 2,138.3
+18WGUA1-12345-D3,143.4,Coal,Spain (ES),GUARDO 1,GUARDO 1,143.4
+18WMALA1-1234567,415.5,Gas,Spain (ES),MALA1,MALA1,415.5
+19W000000000017D,370,Coal,Poland (PL),Bełchatów B01,Bełchatów,5472
+19W000000000025E,390,Coal,Poland (PL),Bełchatów B07,Bełchatów,5102
+19W0000000000296,390,Coal,Poland (PL),Bełchatów B11,Bełchatów,5102
+19W000000000032H,858,Coal,Poland (PL),Bełchatów B14,Bełchatów,5102
+19W0000000000377,113,Coal,Poland (PL),Chorzów B1,Chorzów,226
+19W0000000000660,225,Coal,Poland (PL),Jaworzno 3 B2,Jaworzno 3,1345
+19W000000000067Z,225,Coal,Poland (PL),Jaworzno 3 B4,Jaworzno 3,1345
+19W000000000086V,120,Coal,Poland (PL),	Kraków Łęg B2,Kraków Łęg,451
+19W000000000089P,110,Coal,Poland (PL),Kraków Łęg B3,Kraków Łęg,451
+19W000000000093Y,107,Coal,Poland (PL),Kraków Łęg B4,Kraków Łęg,451
+19W000000000124C,225,Coal,Poland (PL),Łaziska 3 B11,Łaziska 3,905
+19W0000000001624,242,Coal,Poland (PL),Połaniec B6,Połaniec,1657
+19W000000000178Q,225,Coal,Poland (PL),Rybnik B6,Rybnik,1800
+19W000000000188N,110,Coal,Poland (PL),Skawina 3 Tg4,Skawina 3,330
+22W201806283---Y,150,Gas,Belgium (BE),EDF Luminus Seraing GT2,EDF Luminus Seraing TGV,470
+24WG--EVOG16---5,110,Coal,Slovakia (SK),Vojany TG6,Vojany,220
+26WUUUUCASSANO1K,221,Gas,Italy (IT),UP_CASSANO_1,CASSANO,969
+27W-GU-ECHVG3--4,192,Coal,Czech Republic (CZ),ECHV_G3____,ECHV_______,767
+27W-GU-EPR2G25-R,227,Coal,Czech Republic (CZ),EPR2_G25___,EPR2_______,1059
+30WCRAIISAL7---D,300,Coal,Romania (RO),Isalnita_ISAL7_CA,TPP Isalnita,582
+30WTURCTURC3---O,330,Coal,Romania (RO),CteTurceni_TURC3_CA,TPP Turceni,1192
+32W001100100007O,190,Coal,Bulgaria (BG),TPP_BOBOV_DOL_G1,TEC_BOBOVDOL_EAD,570
+34WETL-TENTAG6-1,347.5,Coal,Serbia (RS),TENT A G6,TENT A,1765.5
+44W-T-YT-100001J,105,Coal,Finland (FI),Hanasaari B4,Hanasaari,210
+44W-T-YT-1000247,170,Coal,Finland (FI),Kymijärvi B1,Kymijärvi,170
+45W000000000113T,149,Biomass,Denmark (DK),Amagervaerket 4,Amagervaerket,479
+47W000000000086D,118,Coal,Ireland (IE),Edenderry Unit 1,Edenderry Prod,118
+48W000000LOAN-27,600,Coal,United Kingdom (UK),LOAN-2,LOAN,2400
+48W000000SEAB-1V,836,Gas,United Kingdom (UK),SEAB-1,SEAB,1258
+48W00000EGGPS-1X,525,Coal,United Kingdom (UK),EGGPS-1,EGGPS,2100
+49W000000000020D,470,Gas,Netherlands (NL),Eemshaven 30,Eemshaven,1410
+49W000000000030A,535,Coal,Netherlands (NL),Maasvlakte 1,Maasvlakte,535
+49W0000000000326,1070,Coal,Netherlands (NL),Maasvlakte 3,Maasvlakte,1070
+49W000000000075P,414,Gas,Netherlands (NL),NLFLEVOTH__5,NLFLEVOTH__5,415
