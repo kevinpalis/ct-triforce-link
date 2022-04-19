@@ -33,10 +33,33 @@ entsoMin = entso[["entso_unit_id", "plant_name", "country", "unit_fuel"]]
 print(type(entsoMin))
 
 #check how many platts_plant_id actually match
-q = "select p.platts_unit_id, p.plant_name as pName, g.plant_name as gName from platts p inner join gppd g on p.platts_plant_id=g.platts_plant_id"
+q = "select p.platts_unit_id, p.plant_name as pName, g.plant_name as gName from platts p \
+    inner join gppd g on p.platts_plant_id=g.platts_plant_id"
 r = pysqldf(q)
 print("Matching platts_plant_id:")
-print(r)
+print(len(r.index))
+
+# q1 = "select g.* from gppd g left join platts p on (g.platts_plant_id=p.platts_plant_id \
+#     or (g.plant_name=p.plant_name and g.country_long=p.country and g.plant_primary_fuel=p.unit_fuel))"
+# gppd_platts = pysqldf(q1)
+# print("Matched platts and gppd:")
+# print(len(gppd_platts.index))
+
+q2 = "select e.*, g.gppd_plant_id from entso e left join gppd g on (e.plant_name=g.plant_name \
+    and (e.country like '%' || g.country_long || '%' or g.country_long like '%' || e.country || '%') \
+        and e.unit_fuel=g.plant_primary_fuel)"
+entso_gppd = pysqldf(q2)
+print("Matched platts and gppd:")
+print(len(entso_gppd.index))
+print(entso_gppd)
+
+q3 = "select eg.*, p.platts_unit_id from entso_gppd eg left join platts p on (eg.plant_name=p.plant_name \
+    and (eg.country like '%' || p.country || '%' or p.country like '%' || eg.country || '%') \
+        and eg.unit_fuel=p.unit_fuel)"
+entso_gppd_platts = pysqldf(q3)
+print("Matched entso_gppd_platts:")
+print(len(entso_gppd_platts.index))
+print(entso_gppd_platts)
 
 # for i in range(len(entso.index)):
 #     p1 = entso["plant_name"].iloc[i]
@@ -45,9 +68,9 @@ print(r)
 #     print('\n')
 
 #platts
-print(entso["plant_name"].apply(lambda x: process.extractBests(x, platts["plant_name"].to_list(),score_cutoff=90)))
+#print(entso["plant_name"].apply(lambda x: process.extractBests(x, platts["plant_name"].to_list(),score_cutoff=90)))
 #gppd
-print(entso["plant_name"].apply(lambda x: process.extractBests(x, gppd["plant_name"].to_list(),score_cutoff=90)))
+#print(entso["plant_name"].apply(lambda x: process.extractBests(x, gppd["plant_name"].to_list(),score_cutoff=90)))
 
 #test query
 #q = "SELECT * FROM entso where unit_capacity < 400 LIMIT 10"
