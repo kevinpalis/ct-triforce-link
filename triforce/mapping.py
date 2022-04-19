@@ -45,7 +45,10 @@ print(len(r.index))
 # print("Matched platts and gppd:")
 # print(len(gppd_platts.index))
 
-q2 = "select e.*, g.gppd_plant_id, g.plant_name from entso e left join gppd g on ((e.plant_name like '%' || g.plant_name || '%' or \
+#Phase 1: Match using the following criteria:
+#For all rows in ENTSO, match if following conditions are met: plant_name is the same or similar to (ie. a substring of) GPPD plant AND the country is the same or similar, 
+#and the unit_fuel is the same.
+q2 = "select e.*, g.gppd_plant_id from entso e left join gppd g on ((e.plant_name like '%' || g.plant_name || '%' or \
      g.plant_name like '%' || e.plant_name || '%') and (e.country like '%' || g.country_long || '%' or g.country_long like '%' || e.country || '%') \
         and e.unit_fuel=g.plant_primary_fuel)"
 entso_gppd = pysqldf(q2)
@@ -53,7 +56,9 @@ print("Matched platts and gppd:")
 print(len(entso_gppd.index))
 print(entso_gppd)
 
-q3 = "select eg.*, p.platts_unit_id, p.unit_fuel, p.country from entso_gppd eg left join platts p on ((eg.plant_name like '%' || p.plant_name || '%' or \
+#For all rows in ENTSO, match if following conditions are met: plant_name is the same or similar to (ie. a substring of) Platts plant AND the country is the same or similar, 
+#and the unit_fuel is the same.
+q3 = "select eg.*, p.platts_unit_id from entso_gppd eg left join platts p on ((eg.plant_name like '%' || p.plant_name || '%' or \
      p.plant_name like '%' || eg.plant_name || '%') and (eg.country like '%' || p.country || '%' or p.country like '%' || eg.country || '%') \
         and eg.unit_fuel=p.unit_fuel)"
 entso_gppd_platts = pysqldf(q3)
@@ -61,10 +66,12 @@ print("Matched entso_gppd_platts:")
 print(len(entso_gppd_platts.index))
 print(entso_gppd_platts)
 
+#Remove duplicates in place, keeping only the first occurence (most of the duplicates are introduced by mapping to Platts, ie. 1 GPPD plant maps to multiple Platts units)
 entso_gppd_platts.drop_duplicates(subset=['entso_unit_id'], inplace=True)
 print("Removed duplicates entso_gppd_platts:")
 print(len(entso_gppd_platts.index))
 print(entso_gppd_platts)
+
 # for i in range(len(entso.index)):
 #     p1 = entso["plant_name"].iloc[i]
 #     print(p1)
