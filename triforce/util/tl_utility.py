@@ -15,7 +15,7 @@ class ReturnCodes:
 	INCOMPLETE_PARAMETERS = 1
 	ERROR_PARSING_PARAMETERS = 2
 	INVALID_OPTIONS = 3
-	ERROR_PARSING_JSON = 4
+	ERROR_PARSING_FILE = 4
 	NOT_ENTRY_VERTEX = 5
 	NO_OUTPUT_PATH = 6
 	OUTPUT_FILE_CREATION_FAILED = 7
@@ -29,7 +29,7 @@ class ReturnCodes:
 		INCOMPLETE_PARAMETERS: "There were fewer parameters passed than what is required. Please check the usage help (-h).",
 		ERROR_PARSING_PARAMETERS: "The parameters given cannot be parsed. Please check your syntax.",
 		INVALID_OPTIONS: "A given option/flag is invalid. Please check.",
-		ERROR_PARSING_JSON: "An error occured while parsing a json file. Make sure it exists and is of the proper format.",
+		ERROR_PARSING_FILE: "An error occured while parsing a FILE file. Make sure it exists and is of the proper format.",
 		NOT_ENTRY_VERTEX: "A non-entry vertex was supplied without a sub-graph.",
 		NO_OUTPUT_PATH: "No output file path was given.",
 		OUTPUT_FILE_CREATION_FAILED: "Creating the output file failed.",

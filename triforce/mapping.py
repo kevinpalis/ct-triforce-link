@@ -16,14 +16,42 @@ import sys
 import getopt
 import traceback
 
-
 def main(argv):
     #pysqldf = lambda q: sqldf(q, globals()) #-> unfortunately can't use this inside main, there is a bug with lambdas (https://github.com/yhat/pandasql/issues/53) and pandasql don't intend to work around it.
-
-    entso = pd.read_csv('../data/entso.csv')
-    platts = pd.read_csv('../data/platts.csv')
-    gppd = pd.read_csv('../data/gppd.csv')
+    #defaults
+    is_verbose = False
+    exit_code = ReturnCodes.SUCCESS
+    e_file = '../data/entso.csv'
+    p_file = '../data/platts.csv'
+    g_file = '../data/gppd.csv'
     normalize_plant_names = False
+
+    #Get and parse parameters
+    try:
+        opts, args = getopt.getopt(argv, "he:g:p:n:v", ["entsoFile=", "gppdFile=", "plattsFile=", "normalizePlantNames=", "verbose"])
+        #print (opts, args)
+    except getopt.GetoptError:
+        # print ("OptError: %s" % (str(e1)))
+        exitWithException(ReturnCodes.INVALID_OPTIONS)
+    for opt, arg in opts:
+        if opt == '-h':
+            printUsageHelp(ReturnCodes.SUCCESS)
+        elif opt in ("-e", "--entsoFile"):
+            e_file = arg
+        elif opt in ("-g", "--gppdFile"):
+            g_file = arg
+        elif opt in ("-p", "--plattsFile"):
+            p_file = arg
+        elif opt in ("-n", "--normalizePlantNames"):
+            if arg == "True":
+                normalize_plant_names = True
+        elif opt in ("-v", "--verbose"):
+            isVerbose = True
+
+    entso = pd.read_csv(e_file)
+    platts = pd.read_csv(p_file)
+    gppd = pd.read_csv(g_file)
+    
     #print(entso.head())
     print(f"\nEntso RowCount: {len(entso.index)}")
     #print(platts.head())
@@ -181,6 +209,16 @@ def main(argv):
     #q = "SELECT * FROM entso where unit_capacity < 400 LIMIT 10"
     #r = pysqldf(q)
     #print(r)
+
+#utility method for exception handling
+def exitWithException(eCode):
+    try:
+        raise TLException(eCode)
+    except TLException as e1:
+        print("Error code: %s" % e1.code)
+        TLUtility.printError(e1.message)
+        #traceback.print_exc()
+        sys.exit(eCode)
 
 #prints usage help
 def printUsageHelp(eCode):
