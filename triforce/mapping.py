@@ -1,6 +1,28 @@
 #!/usr/bin/env python3
 '''
-	TBD
+	This is the main module for Triforce-link. This creates a mapping.csv file which maps power plants from 3 different data sources:
+    1. ENTSO
+    2. Platts
+    3. GPPD
+    These data come in the form of CSV files and by default located in data/ directory with the names entso.csv, platts.csv, and gppd.csv.
+    However, this module provides you with the option to pass an arbitrary file using certain CLI parameters (all of which are optional).
+
+    The mapping algorithm goes as follows:
+    0. (Optional) Pre-process / Normalize Power Plant Names - uses the plant_names of ENTSO as the reference to do fuzzy matching to both Platts and GPPD.
+        For all matches that pass a certain WRatio score (90), it replaces the plant_names in Platts and GPPD with the reference name from ENTSO, effectively "normalizing"
+        the names for later queries/mapping. This increases the processing time quite a bit and so I opted to disable this by default, but simply setting a
+        parameter (-n True) to the command call will enable this. The given test data benefits with only 2 additional mapping found because of this but other datasets
+        may be able to benefit more.
+    1. Phase 1 - Map ENTSO-GPPD-Platts using plant name, country, and fuel type. 
+        - Depending on whether step 0 ran (normalized power plant names), the plant_name matching will either employ fuzzy matching (effectively) or just a basic substring match
+    2. Phase 2 - Create temporary dataframes/tables based on platts_plant_id mapping of GPPD and Platts, then use that to replace nulls in Phase 1 (ie. power plants it wasn't able to map):
+
+    Lastly, this module uses the following libraries/technologies:
+    * Pandas = for all data processing
+    * Padasql = for SQL access to dataframes/tables
+    * Fuzzywuzzy = for fuzzy matching (ex. using WRatio scorer)
+    * Pytest = for unit testing
+    > the docker container this script comes in with should already provision all necessary installations
 
     Run the script with -h flag for command-line usage help (ie. python3 mapping.py -h).
     @author Kevin Palis <kevin.palis@gmail.com>
@@ -101,16 +123,18 @@ def main(argv):
     matched_platts_plant_id = sqldf(q1, locals())
 
     print("Starting Phase 1 mapping...")
-    #Phase 1: Map using the following criteria (most reliable):
-    #  For all rows in ENTSO, match if following conditions are met: plant_name is the same or similar to GPPD plant_name AND the country is the same or similar, AND the unit_fuel is the same.
-    #  Note that if normalize_plant_names was set, the name comparison would effectively include fuzzy matching, otherwise it is a less complicated substring match.
+    #Phase 1: Map using the most reliable criteria
+    
+    #A. ENTSO-GPPD Mapping: For all rows in ENTSO, map if following conditions are met, plant_name is the same or similar to GPPD plant_name 
+    # AND the country is the same or similar, AND the unit_fuel is the same. Note that if normalize_plant_names (-n) was set, the name comparison would effectively 
+    # include fuzzy matching, otherwise it is just a less complicated substring match.
     q2 = "select e.*, g.gppd_plant_id from entso e left join gppd g on ((e.plant_name like '%' || g.plant_name || '%' or \
         g.plant_name like '%' || e.plant_name || '%') and (e.country like '%' || g.country_long || '%' or g.country_long like '%' || e.country || '%') \
             and e.unit_fuel=g.plant_primary_fuel)"
     entso_gppd = sqldf(q2, locals())
 
-    #For all rows in ENTSO, match if following conditions are met: plant_name is the same or similar to Platts plant_name AND the country is the same or similar AND the unit_fuel is the same.
-    #  Note that if normalize_plant_names was set, the name comparison would effectively include fuzzy matching, otherwise it is a less complicated substring match.
+    #B. ENTSO-GPPD-Platts mapping: For all rows in ENTSO-GPPD, map if following conditions are met: plant_name is the same or similar to Platts plant_name AND the country is the same or similar AND the unit_fuel is the same.
+    # Note that if normalize_plant_names was set, the name comparison would effectively include fuzzy matching, otherwise it is a less complicated substring match.
     q3 = "select eg.*, p.platts_unit_id from entso_gppd eg left join platts p on ((eg.plant_name like '%' || p.plant_name || '%' or \
         p.plant_name like '%' || eg.plant_name || '%') and (eg.country like '%' || p.country || '%' or p.country like '%' || eg.country || '%') \
             and eg.unit_fuel=p.unit_fuel)"
