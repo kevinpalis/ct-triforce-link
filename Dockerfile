@@ -24,5 +24,7 @@ COPY entrypoint.sh /root
 RUN chmod 755 /root/entrypoint.sh
 #copy the project files to the container
 COPY triforce /home/triforce
+#copy the data files to the container
+COPY data /home/data
 ######
 ENTRYPOINT ["/root/entrypoint.sh"]
