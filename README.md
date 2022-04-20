@@ -10,6 +10,7 @@ These data come in the form of CSV files and by default located in data/ directo
 However, this application provides you with the option to pass an arbitrary file using certain CLI parameters (all of which are optional).
 
 The mapping algorithm goes as follows:
+
 0. (Optional) Pre-process / Normalize Power Plant Names - uses the plant_names of ENTSO as the reference to do fuzzy matching to both Platts and GPPD. For all matches that pass a certain WRatio score (90), it replaces the plant_names in Platts and GPPD with the reference name from ENTSO, effectively "normalizing" the names for later queries/mapping. This increases the processing time quite a bit and so I opted to disable this by default, but simply setting a parameter (-n True) to the command call will enable this. The given test data benefits with only 2 additional mapping found because of this but other datasets may be able to benefit more.
 1. Phase 1 - Map ENTSO-GPPD-Platts using plant name, country, and fuel type. Depending on whether step 0 ran (normalized power plant names), the plant_name matching will either employ fuzzy matching (effectively) or just a basic substring match.
 2. Phase 2 - Create temporary dataframes/tables based on platts_plant_id mapping of GPPD and Platts, then use that to replace nulls in Phase 1 (ie. power plants it wasn't able to map).
