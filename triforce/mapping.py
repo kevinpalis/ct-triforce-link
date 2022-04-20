@@ -15,7 +15,7 @@
         may be able to benefit more.
     1. Phase 1 - Map ENTSO-GPPD-Platts using plant name, country, and fuel type. 
         - Depending on whether step 0 ran (normalized power plant names), the plant_name matching will either employ fuzzy matching (effectively) or just a basic substring match
-    2. Phase 2 - Create temporary dataframes/tables based on platts_plant_id mapping of GPPD and Platts, then use that to replace nulls in Phase 1 (ie. power plants it wasn't able to map):
+    2. Phase 2 - Create temporary dataframes/tables based on platts_plant_id mapping of GPPD and Platts, then use that to replace nulls in Phase 1 (ie. power plants it wasn't able to map).
 
     Lastly, this module uses the following libraries/technologies:
     * Pandas = for all data processing
