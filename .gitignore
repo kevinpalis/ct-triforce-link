@@ -48,3 +48,6 @@ Thumbs.db
 *.mov
 *.wmv
 
+#mapping.csv output file
+mapping.csv
+triforce/mapping.csv
