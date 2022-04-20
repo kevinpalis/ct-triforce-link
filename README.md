@@ -6,8 +6,8 @@ This is a simple application that creates a mapping.csv file which maps power pl
 2. Platts
 3. GPPD
 
-These data come in the form of CSV files and by default located in data/ directory with the names entso.csv, platts.csv, and gppd.csv.
-However, this application provides you with the option to pass an arbitrary file using certain CLI parameters (all of which are optional).
+> These data come in the form of CSV files and by default located in data/ directory with the names entso.csv, platts.csv, and gppd.csv.
+> However, this application provides you with the option to pass an arbitrary file using certain CLI parameters (all of which are optional).
 
 The mapping algorithm goes as follows:
 
