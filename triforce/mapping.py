@@ -17,6 +17,7 @@ import getopt
 import traceback
 
 def main(argv):
+    print(argv)
     #pysqldf = lambda q: sqldf(q, globals()) #-> unfortunately can't use this inside main, there is a bug with lambdas (https://github.com/yhat/pandasql/issues/53) and pandasql don't intend to work around it.
     #defaults
     is_verbose = False
@@ -48,10 +49,13 @@ def main(argv):
         elif opt in ("-v", "--verbose"):
             is_verbose = True
 
-    entso = pd.read_csv(e_file)
-    platts = pd.read_csv(p_file)
-    gppd = pd.read_csv(g_file)
-    
+    try:
+        entso = pd.read_csv(e_file)
+        platts = pd.read_csv(p_file)
+        gppd = pd.read_csv(g_file)
+    except Exception as e:
+        print(e)
+        return ReturnCodes.ERROR_PARSING_FILE
     #A quick overview of row counts if ran verbose
     if is_verbose:
         #print(entso.head())
@@ -157,6 +161,7 @@ def main(argv):
     #write output
     entso_gppd_platts.to_csv('mapping.csv', index=False, columns=['entso_unit_id', 'platts_unit_id', 'gppd_plant_id'])
     print("Mapping finished. Output is written as mapping.csv in the execution directory.")
+    return ReturnCodes.SUCCESS
 
 #utility method for exception handling
 def exitWithException(eCode):
