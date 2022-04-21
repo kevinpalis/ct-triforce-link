@@ -39,7 +39,7 @@ import getopt
 import traceback
 
 def main(argv):
-    print(argv)
+    #print(argv)
     #pysqldf = lambda q: sqldf(q, globals()) #-> unfortunately can't use this inside main, there is a bug with lambdas (https://github.com/yhat/pandasql/issues/53) and pandasql don't intend to work around it.
     #defaults
     is_verbose = False
